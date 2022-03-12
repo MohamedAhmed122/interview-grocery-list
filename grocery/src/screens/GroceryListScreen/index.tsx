@@ -1,34 +1,63 @@
-import {Badge, CustomInput, ScreenLayout} from '@Shared/ui';
-import Icon from 'react-native-vector-icons/AntDesign';
 import React from 'react';
 import {AppNavigationType, AppParams} from '@Navigation/interface';
-import {Button} from 'react-native';
+import {ScreenLayout} from '@Shared/ui';
+
+import {FlatList} from 'react-native';
+
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@Redux/store';
-import {increment} from '@Redux/services';
+import {FilterType, GroceryList} from '@Shared/types';
+import {
+  changeStatus,
+  deleteItemFromList,
+  filterGrocery,
+} from '@Redux/services/grocery';
+import {GroceryHeader, Card} from './components';
+import {Empty} from '@Shared/ui/Empty';
 
 interface GroceryListProps {
   navigation: AppNavigationType;
 }
 
 export const GroceryListScreen: React.FC<GroceryListProps> = ({navigation}) => {
-  const {count} = useSelector((state: RootState) => state.count);
+  const {groceryList} = useSelector((state: RootState) => state.grocery);
+
   const dispatch = useDispatch();
-  console.log(count, 'count');
 
-  const onNavigateToDetails = () =>
-    navigation.navigate(AppParams.GroceryDetails, {id: '10'});
+  const onChangeBadgeStatus = (item: GroceryList) => {
+    console.log('Here From onChangeBadgeStatus', item);
+    dispatch(changeStatus(item));
+  };
 
-  const onNavigateToTasks = () => navigation.navigate(AppParams.GroceryTask);
+  const onFilterGroceries = (status: FilterType) =>
+    dispatch(filterGrocery(status));
+
+  const onNavigateToGroceryDetails = (item: GroceryList) =>
+    navigation.navigate(AppParams.GroceryDetails, {id: item.id});
+
+  const onDeleteGrocery = (id: string) => dispatch(deleteItemFromList(id));
+
+  console.log(groceryList);
 
   return (
     <ScreenLayout>
-      <CustomInput placeholder="Value" />
-      <Badge value="Name" />
-      <Icon name="camera" />
-      <Button title="Navigate to Details" onPress={onNavigateToDetails} />
-      <Button title="Navigate to Tasks" onPress={onNavigateToTasks} />
-      <Button onPress={() => dispatch(increment())} title="increment" />
+      <FlatList
+        ListHeaderComponent={() => (
+          <GroceryHeader onFilter={onFilterGroceries} />
+        )}
+        showsVerticalScrollIndicator={false}
+        data={groceryList}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
+          <Card
+            item={item}
+            onPress={() => onNavigateToGroceryDetails(item)}
+            onBadgePress={() => onChangeBadgeStatus(item)}
+            onDeleteGrocery={() => onDeleteGrocery(item.id)}
+          />
+        )}
+        ListEmptyComponent={Empty}
+      />
     </ScreenLayout>
   );
 };

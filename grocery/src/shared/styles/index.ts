@@ -7,6 +7,7 @@ export const COLORS = {
   lightGrey: '#DDDDDD',
   veryLightAccent: '#E4F1E0',
   error: '#FF1F00',
+  lightRed: '#ff7f7f',
   pinky: '#f4f4',
   brand: {
     green: '#4CA22F',
