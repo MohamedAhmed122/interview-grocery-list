@@ -1,6 +1,6 @@
 import React from 'react';
 import {AppNavigationType, AppParams} from '@Navigation/interface';
-import {ScreenLayout} from '@Shared/ui';
+import {CustomButton, ScreenLayout} from '@Shared/ui';
 
 import {FlatList} from 'react-native';
 
@@ -58,6 +58,7 @@ export const GroceryListScreen: React.FC<GroceryListProps> = ({navigation}) => {
         )}
         ListEmptyComponent={Empty}
       />
+      <CustomButton title="Add Grocery" />
     </ScreenLayout>
   );
 };
