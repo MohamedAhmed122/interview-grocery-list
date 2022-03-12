@@ -1,6 +1,7 @@
+import {compare} from '@Shared/utils';
 import {GroceryList} from '@Shared/types';
 
-export const groceryList: GroceryList[] = [
+const groceryList: GroceryList[] = [
   {
     id: '0',
     title: 'Meat',
@@ -67,4 +68,6 @@ export const groceryList: GroceryList[] = [
     priority: 2,
     history: [],
   },
-];
+].sort(compare);
+
+export {groceryList};

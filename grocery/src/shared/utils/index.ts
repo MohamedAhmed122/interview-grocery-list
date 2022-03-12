@@ -1,4 +1,4 @@
-import {StatusType} from '@Shared/types';
+import {GroceryList, StatusType} from '@Shared/types';
 
 const getStatusValue = (status: StatusType) =>
   status === 1 ? 'Have' : 'Ran out';
@@ -23,4 +23,14 @@ const getStatus = (value: StatusType) => {
   }
 };
 
-export {getStatusValue, getStatus};
+const compare = (a: GroceryList, b: GroceryList) => {
+  let comparison = 0;
+  if (Number(a.priority) < Number(b.priority)) {
+    comparison = -1;
+  } else if (Number(a.priority) > Number(b.priority)) {
+    comparison = 1;
+  }
+  return comparison;
+};
+
+export {getStatusValue, getStatus, compare};
