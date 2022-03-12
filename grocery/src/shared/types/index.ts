@@ -16,3 +16,9 @@ export interface GroceryList {
   priority: PriorityType;
   history: Array<HistoryList>;
 }
+export interface SelectItem {
+  value: StatusType | PriorityType;
+  label: string;
+  id: string;
+  color: string;
+}

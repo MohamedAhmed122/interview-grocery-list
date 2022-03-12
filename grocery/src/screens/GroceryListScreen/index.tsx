@@ -37,6 +37,9 @@ export const GroceryListScreen: React.FC<GroceryListProps> = ({navigation}) => {
 
   const onDeleteGrocery = (id: string) => dispatch(deleteItemFromList(id));
 
+  const onNavigationToGroceryTask = () =>
+    navigation.navigate(AppParams.GroceryTask, {data: undefined});
+
   return (
     <ScreenLayout>
       <FlatList
@@ -56,7 +59,7 @@ export const GroceryListScreen: React.FC<GroceryListProps> = ({navigation}) => {
         )}
         ListEmptyComponent={Empty}
       />
-      <CustomButton title="Add Grocery" />
+      <CustomButton title="Add Grocery" onPress={onNavigationToGroceryTask} />
     </ScreenLayout>
   );
 };

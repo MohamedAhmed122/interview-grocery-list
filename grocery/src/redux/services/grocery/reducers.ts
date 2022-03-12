@@ -1,5 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {changStatusAction, filterGroceryAction} from './actions';
+import {
+  changStatusAction,
+  editGroceryAction,
+  filterGroceryAction,
+} from './actions';
 import {GroceryList, FilterType} from '@Shared/types';
 import {groceryList} from '@Shared/data';
 
@@ -39,10 +43,34 @@ export const grocerySlice = createSlice({
         list => list.id !== action.payload,
       );
     },
+    addItemToGrocery: (state, action: PayloadAction<GroceryList>) => {
+      state.groceryList = [...state.groceryList, action.payload];
+      state.groceryCopyList = [...state.groceryCopyList, action.payload];
+    },
+    editGrocery: (
+      state,
+      action: PayloadAction<{list: GroceryList; isStatusChanged: boolean}>,
+    ) => {
+      state.groceryList = editGroceryAction(
+        state.groceryList,
+        action.payload.list,
+        action.payload.isStatusChanged,
+      );
+      state.groceryCopyList = editGroceryAction(
+        state.groceryCopyList,
+        action.payload.list,
+        action.payload.isStatusChanged,
+      );
+    },
   },
 });
 
-export const {changeStatus, filterGrocery, deleteItemFromList} =
-  grocerySlice.actions;
+export const {
+  changeStatus,
+  filterGrocery,
+  deleteItemFromList,
+  addItemToGrocery,
+  editGrocery,
+} = grocerySlice.actions;
 
 export default grocerySlice.reducer;
