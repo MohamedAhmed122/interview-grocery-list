@@ -23,14 +23,30 @@ const getStatus = (value: StatusType) => {
   }
 };
 
-const compare = (a: GroceryList, b: GroceryList) => {
-  let comparison = 0;
-  if (Number(a.priority) < Number(b.priority)) {
-    comparison = -1;
-  } else if (Number(a.priority) > Number(b.priority)) {
-    comparison = 1;
+const sortArrayOfObjects = <T>(
+  data: T[],
+  keyToSort: keyof T,
+  direction: 'ascending' | 'descending' | 'none',
+) => {
+  if (direction === 'none') {
+    return data;
   }
-  return comparison;
+  const compare = (objectA: T, objectB: T) => {
+    const valueA = objectA[keyToSort];
+    const valueB = objectB[keyToSort];
+
+    if (valueA === valueB) {
+      return 0;
+    }
+
+    if (valueA > valueB) {
+      return direction === 'ascending' ? 1 : -1;
+    } else {
+      return direction === 'ascending' ? -1 : 1;
+    }
+  };
+
+  return data.slice().sort(compare);
 };
 
-export {getStatusValue, getStatus, compare};
+export {getStatusValue, getStatus, sortArrayOfObjects};

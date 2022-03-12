@@ -14,6 +14,7 @@ import {
 } from '@Redux/services/grocery';
 import {GroceryHeader, Card} from './components';
 import {Empty} from '@Shared/ui/Empty';
+import {sortArrayOfObjects} from '@Shared/utils';
 
 interface GroceryListProps {
   navigation: AppNavigationType;
@@ -40,6 +41,8 @@ export const GroceryListScreen: React.FC<GroceryListProps> = ({navigation}) => {
   const onNavigationToGroceryTask = () =>
     navigation.navigate(AppParams.GroceryTask, {data: undefined});
 
+  const sortGrocery = sortArrayOfObjects(groceryList, 'priority', 'ascending');
+
   return (
     <ScreenLayout>
       <FlatList
@@ -47,7 +50,7 @@ export const GroceryListScreen: React.FC<GroceryListProps> = ({navigation}) => {
           <GroceryHeader onFilter={onFilterGroceries} />
         )}
         showsVerticalScrollIndicator={false}
-        data={groceryList}
+        data={sortGrocery}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <Card
