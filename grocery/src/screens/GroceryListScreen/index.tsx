@@ -5,7 +5,7 @@ import {CustomButton, ScreenLayout} from '@Shared/ui';
 import {FlatList} from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '@Redux/store';
+import {RootState} from '@Redux/rootReducer';
 import {FilterType, GroceryList} from '@Shared/types';
 import {
   changeStatus,
@@ -36,8 +36,6 @@ export const GroceryListScreen: React.FC<GroceryListProps> = ({navigation}) => {
     navigation.navigate(AppParams.GroceryDetails, {id: item.id});
 
   const onDeleteGrocery = (id: string) => dispatch(deleteItemFromList(id));
-
-  console.log(groceryList);
 
   return (
     <ScreenLayout>

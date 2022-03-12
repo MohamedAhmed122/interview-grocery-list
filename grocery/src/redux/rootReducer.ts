@@ -11,9 +11,11 @@ const reducers = combineReducers({
 });
 
 const persistConfig = {
-  key: 'root101',
+  key: 'root103',
   storage: AsyncStorage,
   whiteList: ['count'],
 };
 
 export const persistedReducer = persistReducer(persistConfig, reducers);
+
+export type RootState = ReturnType<typeof reducers>;
