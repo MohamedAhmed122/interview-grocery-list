@@ -1,9 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {GroceryListScreen} from '@Screens/GroceryListScreen';
+import {withProviders} from '@Shared/providers';
+import {AppNavigation} from '@Navigation/index';
 
-export default function App() {
-  return <GroceryListScreen />;
-}
+const App = () => {
+  return <AppNavigation />;
+};
 
-const styles = StyleSheet.create({});
+export default withProviders(App);
