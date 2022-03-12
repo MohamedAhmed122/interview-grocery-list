@@ -25,7 +25,7 @@ export const grocerySlice = createSlice({
       console.log('Here From Reducer');
       state.groceryList = changStatusAction(state.groceryList, action.payload);
       state.groceryCopyList = changStatusAction(
-        state.groceryList,
+        state.groceryCopyList,
         action.payload,
       );
     },

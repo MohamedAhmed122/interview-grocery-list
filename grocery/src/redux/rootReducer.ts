@@ -11,7 +11,7 @@ const reducers = combineReducers({
 });
 
 const persistConfig = {
-  key: 'root104',
+  key: 'RootApp',
   storage: AsyncStorage,
   whiteList: ['count'],
 };
