@@ -31,7 +31,7 @@ export const GroceryListScreen: React.FC<GroceryListProps> = ({navigation}) => {
   const onNavigationToGroceryTask = () =>
     navigation.navigate(AppParams.GroceryTask, {data: undefined});
 
-  const sortGrocery = sortArrayOfObjects(groceryList, 'priority', 'ascending');
+  const sortGrocery = sortArrayOfObjects(groceryList, 'priority', 'title');
 
   return (
     <GroceryListView

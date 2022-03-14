@@ -6,7 +6,7 @@ import {FilterType, GroceryList} from '@Shared/types';
 
 export const useFilterGrocery = () => {
   const [isChangedStatus, setIsChangedStatus] = useState(false);
-  const [currentStatus, setCurrentStatus] = useState<FilterType>();
+  const [currentStatus, setCurrentStatus] = useState<FilterType>('ALL');
 
   const dispatch = useDispatch();
 
@@ -23,9 +23,9 @@ export const useFilterGrocery = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      currentStatus && isChangedStatus && onFilterGroceries(currentStatus);
+      isChangedStatus && onFilterGroceries(currentStatus);
     }, 500);
-    console.log(currentStatus, 'currentStatus in useEffect');
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStatus, isChangedStatus]);
 

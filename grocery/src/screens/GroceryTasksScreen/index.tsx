@@ -14,6 +14,7 @@ import {
   ScreenLayout,
 } from '@Shared/ui';
 import {PriorityType, SelectItem, StatusType} from '@Shared/types';
+import {priorityListItems, statusListItems} from '@Shared/data';
 
 interface GroceryTaskProps {
   route: RouteProp<AppParamsList, AppParams.GroceryTask>;
@@ -27,8 +28,11 @@ export const GroceryTasksScreen: React.FC<GroceryTaskProps> = ({
   const {data} = route.params;
   const dispatch = useDispatch();
 
-  const statusList = status.find(list => list.value === data?.status);
-  const priorityList = priorities.find(list => list.value === data?.priority);
+  const statusList = statusListItems.find(list => list.value === data?.status);
+
+  const priorityList = priorityListItems.find(
+    list => list.value === data?.priority,
+  );
 
   const [selectStatus, setSelectStatus] = useState<SelectItem | undefined>(
     statusList || undefined,
@@ -73,13 +77,13 @@ export const GroceryTasksScreen: React.FC<GroceryTaskProps> = ({
       <CustomInput placeholder="title" value={title} onChangeText={setTitle} />
       <CustomPicker
         placeholder="Status"
-        items={status}
+        items={statusListItems}
         selectedItem={selectStatus}
         setSelectedItem={setSelectStatus}
       />
       <CustomPicker
         placeholder="Priority"
-        items={priorities}
+        items={priorityListItems}
         selectedItem={selectPriority}
         setSelectedItem={setSelectPriority}
       />
@@ -87,50 +91,3 @@ export const GroceryTasksScreen: React.FC<GroceryTaskProps> = ({
     </ScreenLayout>
   );
 };
-
-const status: SelectItem[] = [
-  {
-    id: '0',
-    label: 'Have',
-    value: 1,
-    color: 'white',
-  },
-  {
-    id: '1',
-    label: 'Ran out',
-    value: 0,
-    color: 'white',
-  },
-];
-const priorities: SelectItem[] = [
-  {
-    id: '0',
-    label: 'Critical',
-    value: 1,
-    color: 'white',
-  },
-  {
-    id: '1',
-    label: 'Very Important',
-    value: 2,
-    color: 'white',
-  },
-  {
-    id: '2',
-    label: 'Important',
-    value: 3,
-    color: 'white',
-  },
-  {
-    id: '3',
-    label: 'Normal',
-    value: 4,
-    color: 'white',
-  },
-  {
-    id: '4',
-    label: 'Low',
-    value: 5,
-    color: 'white',
-  },
-];

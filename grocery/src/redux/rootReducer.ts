@@ -9,7 +9,7 @@ const reducers = combineReducers({
 });
 
 const persistConfig = {
-  key: 'RootApp-11',
+  key: 'RootApp-17',
   storage: AsyncStorage,
   whiteList: ['grocery'],
 };
