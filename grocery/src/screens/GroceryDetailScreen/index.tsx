@@ -1,22 +1,19 @@
 /* eslint-disable curly */
 import React from 'react';
-import {ScreenLayout} from '@Shared/ui';
-import {FlatList, ListRenderItem, View} from 'react-native';
-
 import {RouteProp} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+
 import {
   AppNavigationType,
   AppParams,
   AppParamsList,
 } from '@Navigation/interface';
-import {HistoryList} from '@Shared/types';
 
-import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '@Redux/rootReducer';
+
 import {changeStatus, deleteItemFromList} from '@Redux/services/grocery';
 
-import {GroceryDetailFooter, History, GroceryDetailHeader} from './components';
-import {styles} from './style';
+import {GroceryDetailView} from './components';
 
 interface GroceryDetailProps {
   navigation: AppNavigationType;
@@ -27,7 +24,8 @@ export const GroceryDetailScreen: React.FC<GroceryDetailProps> = ({
   navigation,
   route,
 }) => {
-  const id = route.params.id;
+  const {id} = route.params;
+
   const {groceryList} = useSelector((state: RootState) => state.grocery);
   const details = groceryList.find(list => list.id === id);
 
@@ -40,43 +38,22 @@ export const GroceryDetailScreen: React.FC<GroceryDetailProps> = ({
     navigation.goBack();
   };
 
-  const onGroceryEdit = () => {
+  const onGroceryEdit = () =>
     navigation.navigate(AppParams.GroceryTask, {data: details});
-  };
 
-  const onToggleStatus = () => {
-    console.log('HERE');
-    dispatch(changeStatus(details));
-  };
-
-  const renderItem: ListRenderItem<HistoryList> = ({item}) => {
-    return <History data={item} title={details.title} />;
-  };
+  const onToggleStatus = () => dispatch(changeStatus(details));
 
   return (
-    <ScreenLayout>
-      <View style={styles.container}>
-        <FlatList
-          ListHeaderComponent={
-            <GroceryDetailHeader
-              title={details.title}
-              priority={details.priority}
-              status={details.status}
-              onToggleStatus={onToggleStatus}
-            />
-          }
-          data={details.history}
-          renderItem={renderItem}
-          keyExtractor={key => String(key.date)}
-          showsVerticalScrollIndicator={false}
-          ListFooterComponent={
-            <GroceryDetailFooter
-              onPressDelete={onGroceryDelete}
-              onPressEdit={onGroceryEdit}
-            />
-          }
-        />
-      </View>
-    </ScreenLayout>
+    <GroceryDetailView
+      details={details}
+      groceryDetailHeaderProps={{
+        onToggleStatus,
+        details,
+      }}
+      groceryDetailFooterProps={{
+        onPressDelete: onGroceryDelete,
+        onPressEdit: onGroceryEdit,
+      }}
+    />
   );
 };

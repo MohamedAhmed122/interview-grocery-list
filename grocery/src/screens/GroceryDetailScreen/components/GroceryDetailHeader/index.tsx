@@ -1,18 +1,21 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-import {PriorityType, StatusType} from '@Shared/types';
+import {GroceryList} from '@Shared/types';
 import {Badge} from '@Shared/ui';
 
 import {styles} from './style';
 
-export const GroceryDetailHeader: React.FC<{
-  title: string;
-  priority: PriorityType;
-  status: StatusType;
+export interface GroceryDetailHeaderProps {
+  details: GroceryList;
   onToggleStatus(): void;
-}> = ({title, priority, status, onToggleStatus}) => {
-  console.log(status, 'ss');
+}
+
+export const GroceryDetailHeader: React.FC<GroceryDetailHeaderProps> = ({
+  details,
+  onToggleStatus,
+}) => {
+  const {title, priority, status} = details;
   return (
     <>
       <Text style={styles.title}> Grocery name is {title}</Text>

@@ -1,7 +1,7 @@
-import {GroceryList, StatusType} from '@Shared/types';
+import {StatusType} from '@Shared/types';
 
 const getStatusValue = (status: StatusType) =>
-  status === 1 ? 'Have' : 'Ran out';
+  status === 0 ? 'Ran out' : 'Have';
 
 const getStatus = (value: StatusType) => {
   switch (value) {

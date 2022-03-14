@@ -8,23 +8,25 @@ import {Badge} from '@Shared/ui/badge';
 import {COLORS} from '@Shared/styles';
 import {styles} from './style';
 
-interface CardProps {
+export interface CardProps {
   item: GroceryList;
-  onBadgePress(): void;
-  onPress(): void;
-  onDeleteGrocery(): void;
+  onChangeBadgeStatus(item: GroceryList): void;
+  onNavigateToGroceryDetails(item: GroceryList): void;
+  onDeleteGrocery(id: string): void;
 }
 
 export const Card: React.FC<CardProps> = ({
   item,
-  onBadgePress,
-  onPress,
+  onChangeBadgeStatus,
+  onNavigateToGroceryDetails,
   onDeleteGrocery,
 }) => {
-  const {title, priority, status} = item;
+  const {title, priority, status, id} = item;
   return (
     <View>
-      <TouchableOpacity style={styles.container} onPress={onPress}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => onNavigateToGroceryDetails(item)}>
         <View style={styles.cardTopContainer}>
           <Icon name={'palm-tree'} color={COLORS.brand.green} size={34} />
           <Text style={styles.title}>{title}</Text>
@@ -32,10 +34,13 @@ export const Card: React.FC<CardProps> = ({
         <Text style={[styles.priority, styles.title]}>{priority}</Text>
       </TouchableOpacity>
       <View style={styles.badgeContainer}>
-        <Badge value={getStatusValue(status)} onPress={onBadgePress} />
+        <Badge
+          value={getStatusValue(status)}
+          onPress={() => onChangeBadgeStatus(item)}
+        />
       </View>
       <View style={styles.deleteContainer}>
-        <IconContainer onPress={onDeleteGrocery} />
+        <IconContainer onPress={() => onDeleteGrocery(id)} />
       </View>
     </View>
   );

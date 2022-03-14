@@ -30,9 +30,6 @@ export const GroceryTasksScreen: React.FC<GroceryTaskProps> = ({
   const statusList = status.find(list => list.value === data?.status);
   const priorityList = priorities.find(list => list.value === data?.priority);
 
-  // selectStatus & selectPriority could be undefined because there are 2 case
-  // case1 (Create new): data will be undefined so (selectStatus & selectPriority) = undefined
-  // case2 (edit grocery): data will come from route.params
   const [selectStatus, setSelectStatus] = useState<SelectItem | undefined>(
     statusList || undefined,
   );
@@ -70,8 +67,6 @@ export const GroceryTasksScreen: React.FC<GroceryTaskProps> = ({
     }
     navigation.goBack();
   };
-
-  console.log(title, '====');
 
   return (
     <ScreenLayout>

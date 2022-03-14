@@ -5,7 +5,7 @@ import {withPersistGate} from './with-persist-gate';
 import {withReduxProvider} from './with-redux-provider';
 
 export const withProviders = compose(
-  withReduxProvider,
-  withPersistGate,
   withNavigationContainer,
+  withPersistGate,
+  withReduxProvider,
 );
